@@ -2,9 +2,11 @@
   <h1>Hello World, this is my first project with Angular.js</h1>
   <h2>{{ welcome }}</h2>
   <ul>
-    <li *ngFor="let task of tasks()">
+    @for (task of tasks(); track task) {
+<li>
       {{ task }}
     </li>
+}
   </ul>
   <hr />
   <h2>{{ 'Hello'.repeat(4) }}</h2>
@@ -29,37 +31,68 @@
   <hr />
   <ul>
     <p>total: {{ tasks().length }}</p>
-    <li *ngFor="let task of tasks(); index as i">
+    @for (task of tasks(); track task; let i = $index) {
+<li>
       {{ i }} {{ task }}
     </li>
+}
   </ul>
   <hr />
   <h1>Signals</h1>
   <input type="text" [value]="name()" (change)="changeHandler($event)">
   <p>name: {{ name() }}</p>
   <hr />
-  <div *ngIf="1 !== 1">
+  @if (1 !== 1) {
+<div>
     My content
   </div>
-  <div *ngIf="name() === 'carlos'">
+}
+  @if (name() === 'carlos') {
+<div>
     I'm Carlos
   </div>
+}
+  @if (name() === 'carlos') {
+    <div>I'm carlos</div>
+  }
   <input type="number" [value]="person().age" (change)="changeAge($event)">
-  <div *ngIf="person().name === 'carlos' && person().age > 18; else elseBlock">
+  @if (person().name === 'carlos' && person().age > 18) {
+<div>
     I'm Carlos and I'm over 18 years old
   </div>
-  <ng-template #elseBlock>
+} @else {
+
     I'm Carlos and I'm under 18 years old
-  </ng-template>
+  
+}
+  
+  <h2>If else new syntax</h2>
+  @if (person().name === 'carlos' && person().age >= 18) {
+    <div>I'm Carlos and I'm over 18 years old</div>
+  } @else {
+    <div>I'm Carlos and I'm under 18 years old</div>
+  }
   <hr />
   <input type="text" [value]="person().name" (change)="changeName($event)">
-  <div [ngSwitch]="person().name">
-    <p *ngSwitchCase="'carlos'">I'm Carlos</p>
-    <p *ngSwitchCase="'julian'">I'm Julian</p>
-    <p *ngSwitchCase="'ana'">I'm Ana</p>
-    <p *ngSwitchCase="'valentina'">I'm Valentina</p>
-    <p *ngSwitchDefault>I'm Nobody</p>
-  </div>
+  <div>
+@switch (person().name) {
+    @case ('carlos') {
+<p>I'm Carlos</p>
+}
+    @case ('julian') {
+<p>I'm Julian</p>
+}
+    @case ('ana') {
+<p>I'm Ana</p>
+}
+    @case ('valentina') {
+<p>I'm Valentina</p>
+}
+    @default {
+<p>I'm Nobody</p>
+}
+  }
+</div>
   <hr />
   <input type="color" [formControl]="colorCtrl">
   <p>color: {{ colorCtrl.value }}</p>
@@ -79,4 +112,60 @@
   <p>
     <input type="text">
   </p>
+  <ul>
+    <p>total: {{ tasks().length }}</p>
+    @for (task of tasks(); track task; let i = $index) {
+<li>
+      {{ i }} {{ task }}
+    </li>
+}
+  </ul>
+  <h2>New for</h2>
+  <ul>
+    @for (task of tasks(); track task; let i = $index) {
+      <li>{{ i }} {{ task }} </li>
+    } @empty {
+      <li><strong>The list is empty</strong></li>
+    }
+  </ul>
+  <hr/>
+  <h2>New Switch</h2>
+  <div>
+@switch (person().name) {
+    @case ('carlos') {
+<p>I'm Carlos</p>
+}
+    @case ('julian') {
+<p>I'm Julian</p>
+}
+    @case ('ana') {
+<p>I'm Ana</p>
+}
+    @case ('valentina') {
+<p>I'm Valentina</p>
+}
+    @default {
+<p>I'm Nobody</p>
+}
+  }
+</div>
+  <div>
+    @switch (person().name) {
+      @case ('carlos') {
+        <p>I'm carlos</p>
+      }
+      @case ('julian') {
+        <p>I'm julian</p>
+      }
+      @case ('ana') {
+        <p>I'm ana</p>
+      }
+      @case ('valentina') {
+        <p>I'm valentina</p>
+      }
+      @default {
+        <p>I'm Nobody</p>
+      }
+    }
+  </div>
 </div>
